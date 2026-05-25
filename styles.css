@@ -1,0 +1,204 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#000;
+  color:white;
+  min-height:100vh;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+#particles{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-2;
+  pointer-events:none;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.container{
+  position:relative;
+  z-index:5;
+  width:92%;
+  margin:auto;
+  text-align:center;
+  padding:30px 0 100px;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.title{
+  font-family:'Uncial Antiqua', cursive;
+  font-size:6.5rem;
+  letter-spacing:5px;
+  color:#1a0000;
+  margin-bottom:30px;
+
+  text-shadow:
+    0 0 8px rgba(255,0,0,0.5),
+    0 0 25px rgba(255,0,0,0.25);
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo-section{
+  display:flex;
+  justify-content:center;
+  margin-bottom:60px;
+}
+
+.logo-box{
+  width:500px;
+  height:500px;
+  border-radius:16px;
+  overflow:hidden;
+}
+
+.logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* =========================
+   ENTER LINK
+========================= */
+
+.full-enter{
+  display:block;
+  width:100%;
+  height:100%;
+  text-decoration:none;
+  color:inherit;
+}
+
+.enter-text{
+  margin-top:40px;
+  font-family:'Cinzel', serif;
+  letter-spacing:3px;
+  color:#ff4d4d;
+  opacity:0.7;
+}
+
+/* =========================
+   PROFILES
+========================= */
+
+.profiles{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:60px 25px;
+  justify-items:center;
+}
+
+.profile{
+  width:210px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.avatar{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#050505;
+  border:3px solid #ff1a1a;
+  box-shadow:0 0 18px rgba(255,0,0,0.5);
+  margin-bottom:15px;
+}
+
+.profile h2{
+  font-family:'Cinzel', serif;
+  font-size:1.6rem;
+  color:#ff4d4d;
+  margin-bottom:6px;
+}
+
+.profile p{
+  font-family:'Inter', sans-serif;
+  font-size:0.9rem;
+  color:#ffb0b0;
+  line-height:1.4;
+}
+
+/* =========================
+   EST TEXT
+========================= */
+
+.est{
+  position:fixed;
+  bottom:14px;
+  right:18px;
+
+  font-family:'Cinzel', serif;
+  font-size:0.72rem;
+  letter-spacing:3px;
+
+  color:rgba(255,255,255,0.18);
+
+  text-shadow:0 0 8px rgba(255,255,255,0.08);
+
+  z-index:20;
+
+  user-select:none;
+  pointer-events:none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1000px){
+  .profiles{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .title{
+    font-size:4.5rem;
+  }
+}
+
+@media(max-width:700px){
+  .profiles{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:500px){
+  .profiles{
+    grid-template-columns:1fr;
+  }
+
+  .logo-box{
+    width:320px;
+    height:320px;
+  }
+
+  .title{
+    font-size:2.7rem;
+  }
+}

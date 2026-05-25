@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toxic Legion</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <a href="users.html" class="full-enter">
+
+    <div class="container">
+
+      <h1 class="title">TOXIC LEGION</h1>
+
+      <div class="logo-section">
+        <div class="logo-box">
+          <img src="Assets/logo.png" alt="Toxic Legion Logo">
+        </div>
+      </div>
+
+      <div class="enter-text">CLICK ANYWHERE TO ENTER</div>
+
+    </div>
+
+  </a>
+
+  <div class="est">EST 2015</div>
+
+  <!-- MUSIC -->
+  <audio id="bgMusic" loop>
+    <source src="Assets/seal.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles = [];
+
+    for(let i=0;i<220;i++){
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: Math.random() * 1.8 + 0.4,
+        size: Math.random() * 2.2 + 0.4,
+        alpha: Math.random(),
+        flicker: Math.random() * 0.03
+      });
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      for(let p of particles){
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.alpha += (Math.random() - 0.5) * p.flicker;
+        p.alpha = Math.max(0.1, Math.min(1, p.alpha));
+
+        if(p.y > canvas.height){
+          p.y = 0;
+          p.x = Math.random() * canvas.width;
+        }
+
+        if(p.x > canvas.width) p.x = 0;
+        if(p.x < 0) p.x = canvas.width;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,40,40,${p.alpha})`;
+        ctx.shadowColor = "rgba(255,0,0,0.4)";
+        ctx.shadowBlur = 6;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // MUSIC
+    const music = document.getElementById("bgMusic");
+
+    const savedTime = localStorage.getItem("musicTime");
+
+    if(savedTime){
+      music.currentTime = savedTime;
+    }
+
+    music.volume = 0.35;
+
+    document.querySelector(".full-enter").addEventListener("click", () => {
+
+      music.play();
+
+      setInterval(() => {
+        localStorage.setItem("musicTime", music.currentTime);
+      }, 500);
+
+    });
+
+  </script>
+
+</body>
+</html>

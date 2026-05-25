@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toxic Legion</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cinzel:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <canvas id="particles"></canvas>
+
+  <div class="container">
+
+    <h1 class="title">TOXIC LEGION</h1>
+
+    <div class="profiles">
+
+      <div class="profile"><img class="avatar" src="Assets/speedy.jpeg"><h2>SPEEDY</h2><p>Failure was never on my agenda.</p></div>
+      <div class="profile"><img class="avatar" src="Assets/eggie.png"><h2>EGGIE</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/rusty.png"><h2>RUSTY</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/solar.png"><h2>SOLAR</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/sudo.png"><h2>SUDO</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/polarz.png"><h2>POLARZ</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/frosty.png"><h2>FROSTY</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/kurses.png"><h2>KURSES</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/jayden.png"><h2>JAYDEN</h2><p>x</p></div>
+      <div class="profile"><img class="avatar" src="Assets/charon.png"><h2>CHARON</h2><p>x</p></div>
+
+    </div>
+
+  </div>
+
+  <div class="est">EST 2015</div>
+
+  <!-- MUSIC -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="Assets/seal.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+
+    const particles = [];
+
+    for(let i=0;i<220;i++){
+      particles.push({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: Math.random() * 1.8 + 0.4,
+        size: Math.random() * 2.2 + 0.4,
+        alpha: Math.random(),
+        flicker: Math.random() * 0.03
+      });
+    }
+
+    function animate(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      for(let p of particles){
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        p.alpha += (Math.random() - 0.5) * p.flicker;
+        p.alpha = Math.max(0.1, Math.min(1, p.alpha));
+
+        if(p.y > canvas.height){
+          p.y = 0;
+          p.x = Math.random() * canvas.width;
+        }
+
+        if(p.x > canvas.width) p.x = 0;
+        if(p.x < 0) p.x = canvas.width;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,40,40,${p.alpha})`;
+        ctx.shadowColor = "rgba(255,0,0,0.4)";
+        ctx.shadowBlur = 6;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // MUSIC
+    const music = document.getElementById("bgMusic");
+
+    const savedTime = localStorage.getItem("musicTime");
+
+    if(savedTime){
+      music.currentTime = savedTime;
+    }
+
+    music.volume = 0.35;
+
+    music.play();
+
+    setInterval(() => {
+      localStorage.setItem("musicTime", music.currentTime);
+    }, 500);
+
+  </script>
+
+</body>
+</html>
